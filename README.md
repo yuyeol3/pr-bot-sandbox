@@ -1,4 +1,4 @@
-# ktc4-team-14
+# sandbox develop
 
 카카오테크 캠퍼스 4기 2단계 팀 프로젝트 — 부산대 4팀
 
