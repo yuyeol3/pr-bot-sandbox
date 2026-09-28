@@ -46,7 +46,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           TEAM_DISCORD_WEBHOOK: ${{ secrets.TEAM_DISCORD_WEBHOOK }}
           DISCORD_USER_IDS: ${{ vars.DISCORD_USER_IDS }}
-        run: python3 tools/pr_discord_bot.py remind
+        run: python3 tools/pr_discord_bot.py remind --dry-run
 
   relay:
     runs-on: ubuntu-latest
