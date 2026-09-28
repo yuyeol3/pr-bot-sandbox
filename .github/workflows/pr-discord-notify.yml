@@ -53,7 +53,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           TEAM_DISCORD_WEBHOOK: ${{ secrets.TEAM_DISCORD_WEBHOOK }}
           DISCORD_USER_IDS: ${{ vars.DISCORD_USER_IDS }}
-        run: python3 tools/pr_discord_bot.py notify
+        run: python3 tools/pr_discord_bot.py notify --dry-run
 
   review:
     runs-on: ubuntu-latest
@@ -70,4 +70,4 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           TEAM_DISCORD_WEBHOOK: ${{ secrets.TEAM_DISCORD_WEBHOOK }}
           DISCORD_USER_IDS: ${{ vars.DISCORD_USER_IDS }}
-        run: python3 tools/pr_discord_bot.py review
+        run: python3 tools/pr_discord_bot.py review --dry-run
