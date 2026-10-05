@@ -7,9 +7,9 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 
 # pr-review-reminder.yml 의 environment(review-reminder) wait timer 와 같아야 한다.
-REVIEW_WAIT_THRESHOLD = timedelta(hours=24)
+REVIEW_WAIT_THRESHOLD = timedelta(minutes=4)  # sandbox: 24h → 4m
 # 첫 리마인드 뒤 반복 간격. environment(review-reminder-followup) wait timer 와 같아야 한다.
-REMIND_INTERVAL = timedelta(hours=12)
+REMIND_INTERVAL = timedelta(minutes=2)  # sandbox: 12h → 2m
 # 새 PR 알림은 이만큼 기다렸다가 리뷰어를 조회하고, 그 사이 들어온 리뷰 요청은 따로 알리지 않는다.
 REVIEWER_SETTLE_WINDOW = timedelta(minutes=2)
 REVIEW_STATE_LABELS = {
@@ -133,7 +133,7 @@ def build_reminder_message(
     reviewers = ", ".join(mention(login, user_ids) for login in logins)
     bangs = "!" * 2 * (nth + 1)
     return (
-        f"{bangs}리뷰 요청 후 {reminder_wait(nth) // timedelta(hours=1)}시간이 지났습니다.{bangs}\n"
+        f"{bangs}리뷰 요청 후 {reminder_wait(nth) // timedelta(minutes=1)}분(sandbox)이 지났습니다.{bangs}\n"
         f"{pr['user']['login']}님의 PR {_pr_link(pr)}: {reviewers}"
     )
 
