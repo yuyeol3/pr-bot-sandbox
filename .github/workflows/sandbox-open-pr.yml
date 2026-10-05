@@ -1,0 +1,27 @@
+name: sandbox open PR
+# sandbox 전용: github-actions[bot] 이 PR 을 연다 (PR 작성자 ≠ 리뷰어로 리뷰 요청을 시험하려고).
+on:
+  workflow_dispatch:
+    inputs:
+      name: {required: true}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  open:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          NAME: ${{ inputs.name }}
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git switch -c "test/$NAME"
+          echo "$NAME" > "sandbox-$NAME.txt"
+          git add . && git commit -m "sandbox: $NAME"
+          git push origin "test/$NAME"
+          gh pr create --base develop --head "test/$NAME" --title "sandbox: $NAME" --body "sandbox 리마인드 테스트"
